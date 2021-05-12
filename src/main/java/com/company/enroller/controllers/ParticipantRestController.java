@@ -14,6 +14,12 @@ import com.company.enroller.persistence.ParticipantService;
 
 @RestController
 @RequestMapping("/participants")
+// localhost:8080/
+// CRUD - Create Read Update
+// localhost:8080/participants		// polaczenie z endpointem l=listy uczestnikow
+// localhost:8080/meetings
+// GET localhost:8080/participants/3	// pobierz z endpointa uczestnika o nr 3
+// POST localhost:8080/participants/3	// jak chcemy dodac uczestnika to uzywamy POST - metoda http uzywana w przegladarce
 public class ParticipantRestController {
 
 	@Autowired
