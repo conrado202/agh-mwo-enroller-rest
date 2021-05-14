@@ -38,37 +38,39 @@ public class ParticipantRestController {
 	// GET localhost:8080/meetings/3/participants 	// ten endpoint powinien nam zwrocic liczbe uczestnikow
 	
 	
-	
+	// GET localhost:8080/participants/user2
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getMeeting(@PathVariable("id") String login) {
 	    Participant participant = participantService.findByLogin(login);
 	if (participant == null) { 
-		return new ResponseEntity(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	} 
 
 	return new ResponseEntity<Participant>(participant, HttpStatus.OK); 
 	}
 	
 	
+	// POST localhost:8080/participants
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<?> registerParticipant(@RequestBody Participant participant) {
 		Participant foundParticipant = participantService.findByLogin(participant.getLogin());
 		if (foundParticipant != null) {
-			return new ResponseEntity("Unable to create. A participant with login " + participant.getLogin() + " already exist.", HttpStatus.CONFLICT);
+			return new ResponseEntity<String>("Unable to create. A participant with login " + participant.getLogin() + " already exist.", HttpStatus.CONFLICT);
 
 		}
 		participantService.add(participant);
 		return new ResponseEntity<>(participant, HttpStatus.CREATED);
 	}
 	
+	// DELETE localhost:8080/participants/user2
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-
 	public ResponseEntity<?> delete(@PathVariable("id") String login) {
 		Participant participant = participantService.findByLogin(login);
 		if (participant == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		participantService.delete(participant);
-		return new ResponseEntity<>(participant, HttpStatus.OK);
+		return new ResponseEntity<String>("Participant removed", HttpStatus.OK);
 	}
 	 
 
